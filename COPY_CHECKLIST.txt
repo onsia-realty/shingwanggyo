@@ -1,0 +1,86 @@
+============================================
+✅ 새 프로젝트 체크리스트
+============================================
+
+📌 준비 단계
+□ 타겟 사이트 URL 확인
+□ 회사 정보 준비 (이름, 전화번호, 주소)
+□ 로고 이미지 준비 (PNG 형식 권장)
+□ 타겟 사이트 이미지 다운로드
+
+📁 프로젝트 생성
+□ 새 폴더 생성 (기존 프로젝트와 별도)
+□ Next.js 프로젝트 초기화 (npx create-next-app@latest)
+□ TypeScript, Tailwind, App Router 선택
+
+📦 패키지 설치
+□ Radix UI 패키지 설치
+  - @radix-ui/react-dialog
+  - @radix-ui/react-dropdown-menu
+  - @radix-ui/react-slot
+□ 유틸리티 패키지 설치
+  - class-variance-authority
+  - clsx
+  - tailwind-merge
+  - lucide-react
+□ API 패키지 설치
+  - solapi (SMS 발송용)
+
+🔐 환경 설정
+□ .env.local 파일 복사 (기존 프로젝트에서)
+□ 환경 변수 확인
+  - NEXT_PUBLIC_SOLAPI_API_KEY
+  - NEXT_PUBLIC_SOLAPI_API_SECRET
+  - NEXT_PUBLIC_SOLAPI_PFID
+  - NEXT_PUBLIC_SENDER_PHONE
+
+📂 폴더 구조
+□ components 폴더 생성
+□ components/ui 폴더 생성
+□ lib 폴더 생성
+□ lib/utils.ts 파일 생성
+
+🎨 스타일 설정
+□ tailwind.config.ts 수정
+□ globals.css 확인
+
+💬 Claude 요청
+□ PROJECT_TEMPLATE.txt 파일 열기
+□ [ ] 부분 실제 정보로 채우기
+□ Claude에게 전체 내용 복사해서 전달
+□ 생성된 코드 확인
+
+📸 이미지 작업
+□ 타겟 사이트 이미지 /public 폴더에 저장
+□ 이미지 파일명 영문으로 변경
+□ 이미지 경로 확인
+
+🧪 테스트
+□ pnpm dev로 개발 서버 실행
+□ localhost:3000 접속 확인
+□ 모든 페이지 네비게이션 테스트
+□ 모바일 반응형 확인
+□ SMS 발송 기능 테스트
+□ 카카오톡 버튼 테스트
+
+🚀 배포 준비
+□ git init (Git 초기화)
+□ .gitignore 확인 (.env.local 포함)
+□ git add . && git commit
+□ GitHub 저장소 생성
+□ GitHub에 푸시
+
+☁️ Vercel 배포
+□ Vercel 로그인
+□ GitHub 저장소 Import
+□ 환경 변수 설정 (Vercel 대시보드)
+□ 배포 완료 확인
+□ 커스텀 도메인 연결 (선택사항)
+
+============================================
+📝 추가 메모:
+- 기존 프로젝트는 절대 수정하지 않기
+- 새 폴더에서만 작업하기
+- .env.local은 Git에 올리지 않기
+- 이미지는 최적화해서 사용하기
+============================================

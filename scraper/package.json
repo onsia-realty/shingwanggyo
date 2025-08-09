@@ -1,0 +1,45 @@
+{
+  "name": "image-scraper-playwright",
+  "version": "1.0.0",
+  "description": "Professional image scraper using Playwright and TypeScript",
+  "main": "dist/scrape-images.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/scrape-images.ts",
+    "scrape": "tsx src/scrape-images.ts",
+    "scrape:cloud": "tsx src/scrape-images.ts --url https://xn--hy1bu3cwyp7ydd9oftd.com --depth 2 --same-origin --out ../public",
+    "scrape:example": "tsx src/scrape-images.ts --url https://example.com --depth 1 --out ./public",
+    "clean": "rimraf dist public/images",
+    "test": "echo \"No tests specified\""
+  },
+  "keywords": [
+    "playwright",
+    "scraper",
+    "image-downloader",
+    "web-crawler",
+    "typescript"
+  ],
+  "author": "Senior Crawling Engineer",
+  "license": "MIT",
+  "dependencies": {
+    "playwright": "^1.41.0",
+    "playwright-chromium": "^1.41.0",
+    "commander": "^11.1.0",
+    "chalk": "^5.3.0",
+    "p-limit": "^5.0.0",
+    "robots-parser": "^3.0.1",
+    "mime-types": "^2.1.35",
+    "ora": "^8.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/mime-types": "^2.1.4",
+    "typescript": "^5.3.3",
+    "tsx": "^4.7.0",
+    "rimraf": "^5.0.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

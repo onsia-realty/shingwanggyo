@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:xn--hy1bu3cwyp7ydd9oftd.com)",
+      "Bash(mkdir:*)",
+      "Bash(curl:*)"
+    ],
+    "deny": []
+  }
+}

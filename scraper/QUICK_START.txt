@@ -1,0 +1,158 @@
+========================================================
+🚀 PLAYWRIGHT 이미지 스크래퍼 - 빠른 시작 가이드
+========================================================
+
+📌 이 스크래퍼로 할 수 있는 것:
+- 웹사이트의 모든 이미지 자동 다운로드
+- 여러 페이지 동시 크롤링
+- 배경 이미지, lazy loading 이미지까지 수집
+- 중복 제거, 폴더 자동 정리
+
+========================================================
+⚡ 1분 설치 (복사해서 실행)
+========================================================
+
+1. 새 폴더 만들기:
+   mkdir image-scraper
+   cd image-scraper
+
+2. 패키지 설치:
+   npm init -y
+   npm install playwright
+   npx playwright install chromium
+
+========================================================
+📝 스크립트 파일 만들기 (scraper.js)
+========================================================
+
+아래 코드를 복사해서 scraper.js 파일로 저장:
+
+----------------------------------------
+const { chromium } = require('playwright');
+const fs = require('fs').promises;
+const path = require('path');
+
+// ==========================================
+// 🎯 여기만 수정하세요!
+// ==========================================
+const TARGET_URL = 'https://example.com';  // 타겟 사이트 URL
+const OUTPUT_DIR = './images';             // 저장 폴더
+
+async function scrapeImages() {
+  console.log('🚀 이미지 수집 시작...');
+  
+  const browser = await chromium.launch({ headless: true });
+  const page = await browser.newPage();
+  
+  try {
+    await page.goto(TARGET_URL, { waitUntil: 'networkidle' });
+    
+    // 모든 이미지 찾기
+    const imageUrls = await page.evaluate(() => {
+      const images = new Set();
+      document.querySelectorAll('img').forEach(img => {
+        if (img.src) images.add(img.src);
+      });
+      return Array.from(images);
+    });
+    
+    console.log(`✅ ${imageUrls.length}개 이미지 발견`);
+    
+    // 폴더 생성
+    await fs.mkdir(OUTPUT_DIR, { recursive: true });
+    
+    // 다운로드
+    let count = 0;
+    for (const url of imageUrls) {
+      try {
+        const response = await page.context().request.get(url);
+        if (response.ok()) {
+          const buffer = await response.body();
+          const filename = `image_${++count}.jpg`;
+          await fs.writeFile(path.join(OUTPUT_DIR, filename), buffer);
+          console.log(`📥 ${filename} 저장 완료`);
+        }
+      } catch (error) {
+        console.error(`❌ 실패: ${url}`);
+      }
+    }
+    
+    console.log(`\n✅ 완료! ${count}개 이미지 저장됨`);
+    console.log(`📁 저장 위치: ${path.resolve(OUTPUT_DIR)}`);
+    
+  } finally {
+    await browser.close();
+  }
+}
+
+scrapeImages();
+----------------------------------------
+
+========================================================
+▶️ 실행 방법
+========================================================
+
+node scraper.js
+
+========================================================
+🎯 실제 사용 예시
+========================================================
+
+예시 1) 네이버 이미지 수집:
+   const TARGET_URL = 'https://www.naver.com';
+
+예시 2) 쿠팡 상품 이미지:
+   const TARGET_URL = 'https://www.coupang.com/vp/products/123456';
+
+예시 3) 인스타그램 (로그인 필요):
+   const TARGET_URL = 'https://www.instagram.com/username';
+
+========================================================
+💡 유용한 팁
+========================================================
+
+1. 여러 페이지 한번에 수집하기:
+   const PAGES = [
+     'https://site.com/page1',
+     'https://site.com/page2',
+     'https://site.com/page3'
+   ];
+
+2. 특정 크기 이상 이미지만:
+   if (img.naturalWidth > 500) images.add(img.src);
+
+3. 특정 확장자만:
+   if (url.includes('.jpg') || url.includes('.png'))
+
+4. 스크롤해서 더 많은 이미지 로드:
+   await page.evaluate(() => {
+     window.scrollTo(0, document.body.scrollHeight);
+   });
+   await page.waitForTimeout(2000);
+
+========================================================
+🔧 문제 해결
+========================================================
+
+Q: "Timeout" 에러가 나요
+A: timeout: 60000 추가 (60초로 늘리기)
+
+Q: 이미지가 안 보여요
+A: waitUntil: 'networkidle' 확인
+
+Q: 로그인이 필요해요
+A: headless: false로 변경 후 수동 로그인
+
+Q: 너무 느려요
+A: Promise.all()로 병렬 다운로드
+
+========================================================
+📞 도움말
+========================================================
+
+더 자세한 설명은 SCRAPER_GUIDE.md 파일 참조
+문제가 있으면 이슈 등록 환영!
+
+========================================================
+⭐ 이 스크래퍼가 유용했다면 별 하나 부탁드려요!
+========================================================
